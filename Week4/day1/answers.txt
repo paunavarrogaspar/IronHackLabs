@@ -1,0 +1,81 @@
+1) Which are the different genres?
+
+USE applestore;
+
+SELECT DISTINCT prime_genre FROM data;
+
+2) Which is the genre with more apps rated?
+
+SELECT 
+    prime_genre, MAX(rating_count_tot)
+FROM
+    data;
+
+3) Which is the genre with more apps?
+
+SELECT 
+    MAX(prime_genre)
+FROM
+    data
+
+4) Which is the one with less?
+
+SELECT 
+    MIN(prime_genre)
+FROM
+    data
+
+5) Take the 10 apps most rated.
+
+SELECT 
+    track_name
+FROM
+    data
+ORDER BY rating_count_tot DESC
+LIMIT 10;
+
+6) Take the 10 apps best rated by users.
+
+SELECT 
+    track_name
+FROM
+    data
+ORDER BY user_rating DESC
+LIMIT 10;
+
+7) Take a look on the data you retrieved in the question 5. Give some insights.
+
+- The top two with the most ratings are the most popular social networks nowadays. Also, on the 6th position we have Pinterest, another social network
+- There's also four games amongst the TOP10
+- Surprisingly, Pandora Music & Radio makes the TOP10 way above Spotify
+
+8) Take a look on the data you retrieved in the question 6. Give some insights.
+
+- The best rated apps by its users are, mostly, anonymus to the general public.
+- The only two apps I know of in this classification are Plants vs Zombies and its HD version.
+
+9) Now compare the data from questions 5 and 6. What do you see?
+
+- There is not a single match
+- Having a lot of votes does not guarantee that you are the best rated by your users.
+
+10) How could you take the top 3 regarding the user ratings but also the number of votes?
+
+SELECT 
+    track_name
+FROM
+    data
+ORDER BY user_rating DESC, rating_count_tot DESC
+LIMIT 10;
+
+11) Does people care about the price?
+
+As we all know, people tend to go for free apps but, f lots of people rated an app and it has good ratings, then people will care less about paying the price even if it is a relatively higher price.
+On the other end, if an expensive app has no ratings, people will not try it. (See the QUERY below)
+
+SELECT 
+    price, AVG(user_rating), rating_count_tot
+FROM
+    data
+GROUP BY price
+ORDER BY AVG(user_rating) DESC;
